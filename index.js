@@ -8,7 +8,7 @@ export default {
 
     async function getCachedResponse() {
       const start = Date.now()
-      const response = await cache.match(cacheKey) ?? new Response(null, { status: 404 })
+      const response = (await cache.match(cacheKey))?.clone() ?? new Response(null, { status: 404 })
       const elapsed = Date.now() - start
       response.headers.set("X-Elapsed", elapsed.toString())
       return response
