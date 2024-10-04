@@ -1,0 +1,4 @@
+name = "cache"
+main = "index.js"
+compatibility_date = "2024-10-03"
+observability.enabled = true
