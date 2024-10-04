@@ -11,19 +11,22 @@ export default {
         const start = Date.now()
         let response = await cache.match(cacheKey) ?? new Response(null, { status: 404 })
         const elapsed = Date.now() - start
-        response = new Response(response.body, { ...response, status})
+        response = new Response(response.body, {
+          status: status ?? response.status,
+          headers: response.headers
+        })
         response.headers.set("X-Elapsed", elapsed.toString())
 
         return response
       }
 
       switch (request.method) {
-        case "GET": return getCachedResponse()
+        case "GET": return await getCachedResponse()
 
         case "POST":
           const response = new Response(request.body, request)
           await cache.put(cacheKey, response)
-          return getCachedResponse(204)
+          return await getCachedResponse(201)
 
         case "DELETE":
           if (await cache.delete(cacheKey)) {
