@@ -4,7 +4,7 @@
 
 ## Usage
 
-
+`http -pbhBH "https://cache.cfwjs.workers.dev/foo" bar=baz`
 
 ## Local Development
 
